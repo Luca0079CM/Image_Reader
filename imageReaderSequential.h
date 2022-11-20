@@ -4,7 +4,7 @@
 #include <opencv2/opencv.hpp>
 using namespace cv;
 
-void loadImagesSequential(String s);
+void loadImagesSequential(std::vector<std::string> imageStrings);
 Mat* getImagesSequential();
 
 #endif //IMAGE_READER_IMAGEREADERSEQUENTIAL_H
