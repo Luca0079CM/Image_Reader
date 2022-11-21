@@ -1,6 +1,6 @@
 #include "imageReaderSequential.h"
 
-Mat* images = new Mat[10];
+Mat* images;
 
 void loadImagesSequential(std::vector<std::string> imageStrings){
     images = new Mat[imageStrings.size()];
