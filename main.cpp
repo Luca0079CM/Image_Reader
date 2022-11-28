@@ -42,7 +42,6 @@ int main() {
         int parallelTime = 0;
         // Cambia il numero di thread
         omp_set_num_threads(k);
-
         // Caricamento parallelo delle immagini
         for (int i = 0; i < nTest; i++) {
             auto start = std::chrono::system_clock::now();
@@ -57,6 +56,10 @@ int main() {
         logFile << parallelTime / nTest << "\n";
     }
     logFile.close();
+    delete[] images;
+
+    //TODO Test in base all'aumentare del numero di immagini
+
     // Test per visualizzare immagini
     /*
     String windowName = "Display window";
