@@ -8,7 +8,6 @@ void loadImagesParallel(std::vector<std::string> imageStrings){
 #pragma omp parallel private(tid)
     {
 #ifdef _OPENMP
-        /* Obtain thread number */
         tid = omp_get_thread_num();
         printf("Hello World from thread = %d\n", tid);
 #endif
