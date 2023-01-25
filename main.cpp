@@ -123,6 +123,6 @@ int main() {
      */
 
     logFile.close();
-
+    logFile2.close();
     return 0;
 }
