@@ -68,6 +68,7 @@ int main() {
 
     // Tests in base all'aumentare del numero di immagini
     ofstream logFile2("log2.txt");
+
     // Test con il caricamento sequenziale, aumentando ogni volta di 25 immagini l'insieme da caricare
     logFile2 << "Tempi del caricamento sequenziale, aumentando di 25 immagini ogni volta:\n";
     for (int i = (int)imageStrings.size()/10; i < imageStrings.size(); i+=25) {
@@ -86,7 +87,7 @@ int main() {
         logFile2 << sequentialTime << "\n";
     }
 
-    // Cambia il numero di thread
+    // Cambia il numero di thread settandoli al massimo
     omp_set_num_threads(maxThreads);
     logFile2 << "\nTempi del caricamento parallelo, aumentando di 25 immagini ogni volta:\n";
     // Caricamento parallelo delle immagini
