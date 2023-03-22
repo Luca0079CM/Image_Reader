@@ -15,7 +15,7 @@ using namespace std;
 namespace fs = std::filesystem;
 
 int main() {
-    String imagePath = "/home/luca/CLionProjects/Image_Reader/images/";
+    String imagePath = "images/";
     ofstream logFile("log.txt");
     vector<string> imageStrings = vector<string>();
     int maxThreads = omp_get_max_threads();
