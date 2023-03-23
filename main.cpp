@@ -7,7 +7,7 @@
 #include "imageReaderSequential.h"
 #include "imageReaderParallel.h"
 
-#define nTest 10
+#define nTest 1
 #define subsetDimension 500
 
 using namespace cv;
@@ -60,7 +60,6 @@ int main() {
             parallelTime += elapsed.count();
             delete[] images;
         }
-        cout<<k;
         cout << "Tempo medio trascorso per il caricamento delle immagini in modo parallelo: "
             << parallelTime / nTest << "\n";
         logFile << parallelTime / nTest << "\n";
@@ -69,9 +68,9 @@ int main() {
     // Tests in base all'aumentare del numero di immagini
     ofstream logFile2("log2.txt");
 
-    // Test con il caricamento sequenziale, aumentando ogni volta di 25 immagini l'insieme da caricare
-    logFile2 << "Tempi del caricamento sequenziale, aumentando di 25 immagini ogni volta:\n";
-    for (int i = (int)imageStrings.size()/10; i < imageStrings.size(); i+=25) {
+    // Test con il caricamento sequenziale, aumentando ogni volta di 50 immagini l'insieme da caricare
+    logFile2 << "Tempi del caricamento sequenziale, aumentando di 50 immagini ogni volta:\n";
+    for (int i = (int)imageStrings.size()/2.5; i < imageStrings.size(); i+=50) {
         Mat *images;
         sequentialTime = 0;
         vector<string> imageStringsTest(imageStrings.begin(),imageStrings.begin() + i);
@@ -91,7 +90,7 @@ int main() {
     omp_set_num_threads(maxThreads);
     logFile2 << "\nTempi del caricamento parallelo, aumentando di 50 immagini ogni volta:\n";
     // Caricamento parallelo delle immagini
-    for (int i = (int)imageStrings.size()/10; i < imageStrings.size(); i+=50) {
+    for (int i = (int)imageStrings.size()/2.5; i < imageStrings.size(); i+=50) {
         int parallelTime = 0;
         Mat *images;
         vector<string> imageStringsTest(imageStrings.begin(),imageStrings.begin() + i);
