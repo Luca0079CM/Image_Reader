@@ -7,7 +7,7 @@
 #include "imageReaderSequential.h"
 #include "imageReaderParallel.h"
 
-#define nTest 1
+#define nTest 10
 #define subsetDimension 500
 
 using namespace cv;
@@ -71,19 +71,21 @@ int main() {
     // Test con il caricamento sequenziale, aumentando ogni volta di 50 immagini l'insieme da caricare
     logFile2 << "Tempi del caricamento sequenziale, aumentando di 50 immagini ogni volta:\n";
     for (int i = (int)imageStrings.size()/2.5; i < imageStrings.size(); i+=50) {
-        Mat *images;
         sequentialTime = 0;
-        vector<string> imageStringsTest(imageStrings.begin(),imageStrings.begin() + i);
-        auto start = chrono::system_clock::now();
-        loadImagesSequential(imageStringsTest);
-        images = getImagesSequential();
-        auto end = chrono::system_clock::now();
-        auto elapsed = chrono::duration_cast<chrono::milliseconds>(end - start);
-        sequentialTime += elapsed.count();
-        delete[] images;
+        for (int j = 0; j < nTest; j++) {
+            Mat *images;
+            vector<string> imageStringsTest(imageStrings.begin(), imageStrings.begin() + i);
+            auto start = chrono::system_clock::now();
+            loadImagesSequential(imageStringsTest);
+            images = getImagesSequential();
+            auto end = chrono::system_clock::now();
+            auto elapsed = chrono::duration_cast<chrono::milliseconds>(end - start);
+            sequentialTime += elapsed.count();
+            delete[] images;
+        }
         cout << "Tempo trascorso per il caricamento di " << i << " immagini in modo sequenziale: "
-             << sequentialTime << "\n";
-        logFile2 << sequentialTime << "\n";
+             << sequentialTime/nTest << "\n";
+        logFile2 << sequentialTime/nTest << "\n";
     }
 
     // Cambia il numero di thread settandoli al massimo
@@ -92,18 +94,20 @@ int main() {
     // Caricamento parallelo delle immagini
     for (int i = (int)imageStrings.size()/2.5; i < imageStrings.size(); i+=50) {
         int parallelTime = 0;
-        Mat *images;
-        vector<string> imageStringsTest(imageStrings.begin(),imageStrings.begin() + i);
-        auto start = chrono::system_clock::now();
-        loadImagesParallel(imageStringsTest);
-        images = getImagesParallel();
-        auto end = chrono::system_clock::now();
-        auto elapsed = chrono::duration_cast<chrono::milliseconds>(end - start);
-        parallelTime += elapsed.count();
-        delete[] images;
+        for (int j = 0; j < nTest; j++) {
+            Mat *images;
+            vector<string> imageStringsTest(imageStrings.begin(), imageStrings.begin() + i);
+            auto start = chrono::system_clock::now();
+            loadImagesParallel(imageStringsTest);
+            images = getImagesParallel();
+            auto end = chrono::system_clock::now();
+            auto elapsed = chrono::duration_cast<chrono::milliseconds>(end - start);
+            parallelTime += elapsed.count();
+            delete[] images;
+        }
         cout << "Tempo trascorso per il caricamento di " << i << " immagini in modo parallelo: "
-             << parallelTime << "\n";
-        logFile2 << parallelTime<< "\n";
+             << parallelTime/nTest << "\n";
+        logFile2 << parallelTime/nTest << "\n";
     }
 
 
